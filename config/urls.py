@@ -18,6 +18,7 @@ urlpatterns = [
     # User management
     url(r'^users/', include("compare.users.urls", namespace="users")),
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^comparisons/', include("compare.comparisons.urls", namespace="comparisons"))
 
     # Your stuff: custom urls includes go here
 

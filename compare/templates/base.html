@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{% block title %}compare{% endblock title %}</title>
+    <title>{% block title %}Compare{% endblock title %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -34,7 +34,7 @@
     <div class="m-b">
       <nav class="navbar navbar-dark navbar-static-top bg-inverse">
         <div class="container">
-          <a class="navbar-brand" href="/">compare</a>
+          <a class="navbar-brand" href="/">Compare</a>
           <button type="button" class="navbar-toggler hidden-sm-up pull-xs-right" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
             &#9776;
           </button>
@@ -46,7 +46,7 @@
                 <a class="nav-link" href="{% url 'home' %}">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'about' %}">About</a>
+                <a class="nav-link" href="{% url 'comparisons:home' %}">Comparisons</a>
               </li>
             </ul>
 
@@ -66,13 +66,16 @@
                   <a id="log-in-link" class="nav-link" href="{% url 'account_login' %}">{% trans "Log In" %}</a>
                 </li>
               {% endif %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'about' %}">About</a>
+                </li>
             </ul>
           </div>
         </div>
       </nav>
     </div>
 
-    <div class="container">
+    <div class="container m-t-1">
 
       {% if messages %}
           {% for message in messages %}
@@ -80,9 +83,7 @@
           {% endfor %}
       {% endif %}
 
-      {% block content %}
-        <p>Use this document as a way to quick start any new project.</p>
-      {% endblock content %}
+      {% block content %}{% endblock content %}
 
     </div> <!-- /container -->
 
@@ -105,4 +106,3 @@
     {% endblock javascript %}
   </body>
 </html>
- 
