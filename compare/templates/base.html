@@ -16,8 +16,7 @@
     {% block css %}
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">
-
-    <!-- Your stuff: Third-party css libraries go here -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     <!-- This file store project specific CSS -->
     <link href="{% static 'css/project.css' %}" rel="stylesheet">
@@ -52,15 +51,15 @@
 
             <ul class="nav navbar-nav pull-xs-right">
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'about' %}">About</a>
+                <a class="nav-link" href="{% url 'about' %}" title="About"><i class="fa fa-question-circle fa-lg"></i></a>
               </li>
               {% if request.user.is_authenticated %}
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a>
+                  <a class="nav-link" href="{% url 'users:detail' request.user.username  %}" title="Settings"><i class="fa fa-cog fa-lg"></i></a>
                 </li>
-                <li class="nav-item">
+                <!--<li class="nav-item">
                   <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Logout" %}</a>
-                </li>
+                </li>-->
               {% else %}
                 <li class="nav-item">
                   <a id="sign-up-link" class="nav-link" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
@@ -76,15 +75,12 @@
     </div>
 
     <div class="container m-t-1">
-
       {% if messages %}
           {% for message in messages %}
               <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
           {% endfor %}
       {% endif %}
-
       {% block content %}{% endblock content %}
-
     </div> <!-- /container -->
 
     {% block modal %}{% endblock modal %}
@@ -95,6 +91,9 @@
     {% block javascript %}
       <!-- Latest JQuery -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+      <!-- Tether - a requirement for Bootstrap tooltips -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.1.1/js/tether.min.js"></script>
 
       <!-- Latest compiled and minified JavaScript -->
       <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script>
