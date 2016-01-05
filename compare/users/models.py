@@ -17,7 +17,7 @@ class User(AbstractUser):
     # around the globe.
     name = models.CharField(_("What's your name?"), blank=True, max_length=255)
     about = models.TextField(_("A little something about yourself?"), blank=True)
-    country = CountryField(_("Where do you live?"), blank=True, blank_label='(select country)')
+    country = CountryField(_("Where do you live?"), blank=True, blank_label='<pick one>')
 
     def __str__(self):
         return self.username
