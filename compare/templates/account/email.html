@@ -6,7 +6,7 @@
 {% block content %}
 <div class="container">
   <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-12">
       <h2>{% trans "E-mail Addresses" %}</h2>
       {% if user.emailaddress_set.all %}
       <p>{% trans 'The following e-mail addresses are associated with your account:' %}</p>
@@ -23,19 +23,19 @@
 
       {{ emailaddress.email }}
           {% if emailaddress.verified %}
-          <span class="verified">{% trans "Verified" %}</span>
+          <span class="verified text-success">{% trans "Verified" %}</span>
           {% else %}
-          <span class="unverified">{% trans "Unverified" %}</span>
+          <span class="unverified text-warning">{% trans "Unverified" %}</span>
           {% endif %}
-            {% if emailaddress.primary %}<span class="primary">{% trans "Primary" %}</span>{% endif %}
+            {% if emailaddress.primary %}<span class="primary text-primary">{% trans "Primary" %}</span>{% endif %}
       </label>
       </div>
         {% endfor %}
 
       <div class="buttonHolder">
-            <button class="secondaryAction" type="submit" name="action_primary" >{% trans 'Make Primary' %}</button>
-            <button class="secondaryAction" type="submit" name="action_send" >{% trans 'Re-send Verification' %}</button>
-            <button class="primaryAction" type="submit" name="action_remove" >{% trans 'Remove' %}</button>
+            <button class="btn btn-primary secondaryAction" type="submit" name="action_primary" >{% trans 'Make Primary' %}</button>
+            <button class="btn btn-primary secondaryAction" type="submit" name="action_send" >{% trans 'Re-send Verification' %}</button>
+            <button class="btn btn-primary primaryAction" type="submit" name="action_remove" >{% trans 'Remove' %}</button>
       </div>
 
       </fieldset>
@@ -47,7 +47,7 @@
       {% endif %}
 
 
-          <h2>{% trans "Add E-mail Address" %}</h2>
+          <h2 class="m-t-1">{% trans "Add E-mail Address" %}</h2>
 
           <form method="post" action="." class="add_email">
               {% csrf_token %}
