@@ -2,28 +2,23 @@
 {% load static %}
 
 {% block content %}
-<div class="container">
 
-  <div class="row">
-    <div class="col-sm-12">
-
-      <h2>{{ object.username }}</h2>
-      {% if object.name %}
-        <p>{{ object.name }}</p>
-      {% endif %}
-    </div>
-  </div>
+<div class="card card-block">
+  <h2 class="card-title">{{ object.username }} {% if object.name %}({{ object.name }}){% endif %}</h2>
+  <p>Member since <span class="font-weight-bold" title="{{ object.date_joined }}">{{ object.date_joined|date:"F j, o" }}</span>.</p>
+</div>
 
 {% if object == request.user %}
 <!-- Action buttons -->
-<div class="row">
-
-  <div class="col-sm-12 ">
-    <a class="btn btn-primary" href="{% url 'users:update' %}">Update My Info</a>
-    <a class="btn btn-primary" href="{% url 'account_email' %}">Update E-Mail</a>
-    <a class="btn btn-primary" href="{% url 'account_set_password' %}">Update Password</a>
+<div class="card card-block">
+  <h2 class="card-title">Profile Settings</h2>
+  <div class="row">
+    <div class="col-sm-12">
+      <a class="btn btn-primary" href="{% url 'users:update' %}">Update My Info</a>
+      <a class="btn btn-primary" href="{% url 'account_email' %}">Update E-Mail</a>
+      <a class="btn btn-primary" href="{% url 'account_set_password' %}">Update Password</a>
+    </div>
   </div>
-
 </div>
 <!-- End Action buttons -->
 {% endif %}
