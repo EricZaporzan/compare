@@ -3,26 +3,29 @@
 
 {% block content %}
 
-<div class="card card-block">
-  <h2 class="card-title">{{ object.username }} {% if object.name %}({{ object.name }}){% endif %}</h2>
+<h1>{{ object.username }}{% if object.name %} ({{ object.name }}){% endif %}</h1>
+{% if object.about %}<p class="font-italic">"{{ object.about }}"</p>{% endif %}
+
+<div class="row card card-block">
+  <h3 class="card-title">User Details</h3>
   <p>Member since <span class="font-weight-bold" title="{{ object.date_joined }}">{{ object.date_joined|date:"F j, o" }}</span>.</p>
 </div>
 
 {% if object == request.user %}
 <!-- Action buttons -->
-<div class="card card-block">
-  <h2 class="card-title">Profile Settings</h2>
+<div class="row card card-block">
+  <h3 class="card-title">Profile Settings</h3>
   <div class="row">
     <div class="col-sm-12">
-      <a class="btn btn-primary" href="{% url 'users:update' %}">Update My Info</a>
-      <a class="btn btn-primary" href="{% url 'account_email' %}">Update E-Mail</a>
+      <a class="btn btn-primary" href="{% url 'users:update' %}">Update Profile</a>
+      <a class="btn btn-primary" href="{% url 'account_email' %}">Update E-Mail Addresses</a>
       <a class="btn btn-primary" href="{% url 'account_set_password' %}">Update Password</a>
+      <a class="btn btn-danger" href="{% url 'account_logout' %}">Log Out</a>
     </div>
   </div>
 </div>
 <!-- End Action buttons -->
 {% endif %}
-
 
 </div>
 {% endblock content %}
