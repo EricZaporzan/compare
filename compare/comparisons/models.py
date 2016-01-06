@@ -19,3 +19,12 @@ class Comparison(models.Model):
 
     def __str__(self):
         return self.title
+
+class ComparisonItem(models.Model):
+    owner = models.ForeignKey(User)
+    title = models.CharField(_("Name"), max_length=255, blank=True)
+    description = models.TextField(_("Give a brief description of the submission"), blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
+    image_url = models.URLField()
+    
