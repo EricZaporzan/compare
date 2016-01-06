@@ -23,6 +23,9 @@
       <a class="btn btn-primary" href="{% url 'account_email' %}">Update E-Mail Addresses</a>
       <a class="btn btn-primary" href="{% url 'account_set_password' %}">Update Password</a>
       <a class="btn btn-danger" href="{% url 'account_logout' %}">Log Out</a>
+      {% if request.user.is_staff %}
+      <a class="btn btn-success" href="{% url 'admin:index' %}">Admin Console</a>
+      {% endif %}
     </div>
   </div>
 </div>
