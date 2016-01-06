@@ -36,3 +36,23 @@
 [hidden][style="display: block;"] {
   display: block !important;
 }
+
+/* standard navbar */
+@media (min-width: 768px) {
+  .show-collapse {
+    display: none;
+  }
+  .show-uncollapse {
+    display: inline;
+  }
+}
+
+/* mobile navbar */
+@media (max-width: 767px) {
+  .show-collapse {
+    display: inline;
+  }
+  .show-uncollapse {
+    display: none;
+  }
+}

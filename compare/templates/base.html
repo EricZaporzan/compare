@@ -31,7 +31,7 @@
   <body>
 
     <div class="m-b">
-      <nav class="navbar navbar-dark navbar-static-top bg-inverse">
+      <nav class="navbar navbar-dark navbar-static-top bg-inverse" style="background-color: #002E62;">
         <div class="container">
           <a class="navbar-brand" href="/">BeyondCompare</a>
           <button type="button" class="navbar-toggler hidden-sm-up pull-xs-right" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
@@ -48,14 +48,14 @@
                 <a class="nav-link" href="{% url 'comparisons:home' %}">Comparisons</a>
               </li>
             </ul>
-
+            <span class="show-collapse"><hr /></span>
             <ul class="nav navbar-nav pull-xs-right">
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'about' %}" title="About"><i class="fa fa-question-circle fa-lg"></i></a>
+                <a class="nav-link" href="{% url 'about' %}" title="About"><span class="show-collapse m-r-1">About</span><i class="fa fa-question-circle fa-lg"></i></a>
               </li>
               {% if request.user.is_authenticated %}
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'users:detail' request.user.username  %}" title="Settings"><span class="m-r-1">Hi, {{ request.user.username }}!</span><i class="fa fa-cog fa-lg"></i></a>
+                  <a class="nav-link" href="{% url 'users:detail' request.user.username  %}" title="Settings"><span class="show-collapse m-r-1">Settings</span><span class="show-uncollapse m-r-1">Hi, {{ request.user.username }}!</span><i class="fa fa-cog fa-lg"></i></a>
                 </li>
                 <!--<li class="nav-item">
                   <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Logout" %}</a>
