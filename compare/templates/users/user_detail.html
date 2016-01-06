@@ -8,7 +8,7 @@
 
 <div class="row card card-block">
   <h3 class="card-title">User Details</h3>
-  {% if object.country %}<p>Lives in <img src="{{ object.country.flag }}" /> <span class="font-weight-bold">{{ object.country.name }}</span></p>{% endif %}
+  {% if object.country %}<p>Lives in <img src="{{ object.country.flag }}" /> <span class="font-weight-bold">{{ object.country.name }}</span>.</p>{% endif %}
   <p>Member since <span class="font-weight-bold" title="{{ object.date_joined }}">{{ object.date_joined|date:"F j, o" }}</span>.</p>
 
 </div>
