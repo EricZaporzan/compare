@@ -6,7 +6,7 @@ class ComparisonAdmin(admin.ModelAdmin):
     list_display = ("title", "owner", "active",)
 
 class ComparisonItemAdmin(admin.ModelAdmin):
-    list_display = ("title", "owner",)
+    list_display = ("comparison", "owner", "title",)
 
 admin.site.register(Comparison, ComparisonAdmin)
 admin.site.register(ComparisonItem, ComparisonItemAdmin)

@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 
 from compare.users.models import User
 
@@ -14,7 +15,8 @@ class Comparison(models.Model):
     description = models.TextField(_("Outline the rules, guidelines, and anything else important about this comparison."), blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
-    date_ending = models.DateTimeField(_("When should we finish?"), blank=True)
+    date_starting = models.DateTimeField(_("When should we start?"), blank=True, default=timezone.now)
+    date_ending = models.DateTimeField(_("When should we finish?"), blank=True, null=True)
     active = models.BooleanField(_("Is it happening right now?"), default=True)
 
     def __str__(self):
@@ -28,3 +30,9 @@ class ComparisonItem(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
     image_url = models.URLField()
+
+    def __str__(self):
+        if(self.title != ""):
+            return self.title
+        else:
+            return str(self.owner.username) + "'s submission to the '" + str(self.comparison.title) + "' comparison"
