@@ -10,8 +10,12 @@ from braces.views import LoginRequiredMixin
 from .models import Comparison, ComparisonItem
 
 class ComparisonCreateView(LoginRequiredMixin, CreateView):
-    fields = ['title', 'owner', 'description', 'date_starting', 'date_ending',]
+    fields = ['title', 'description', 'date_starting', 'date_ending',]
     model = Comparison
+    def form_valid(self, form):
+        owner = self.request.user
+        form.instance.owner = owner
+        return super(ComparisonCreateView, self).form_valid(form)
 
 
 class ComparisonUpdateView(LoginRequiredMixin, UpdateView):
