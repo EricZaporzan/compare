@@ -4,5 +4,10 @@
 {% block content %}
 
 <h1>{{ object.title }}</h1>
+<p class="font-italic">A comparison set created by {{ object.owner.username }}.</p>
+
+<div class="card card-block row">
+  <h3 class="card-title">Details</h3>
+  {% if object.description %}<p>{{ object.description }}</p>{% endif %}
 
 {% endblock content %}
