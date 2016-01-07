@@ -22,6 +22,10 @@ class Comparison(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('comparisons:detail', kwargs={'pk': self.pk})
+
+
 class ComparisonItem(models.Model):
     comparison = models.ForeignKey(Comparison)
     owner = models.ForeignKey(User)
@@ -32,7 +36,7 @@ class ComparisonItem(models.Model):
     image_url = models.URLField()
 
     def __str__(self):
-        if(self.title != ""):
-            return self.title
-        else:
+        if(self.title == ""):
             return str(self.owner.username) + "'s submission to the '" + str(self.comparison.title) + "' comparison"
+        else:
+            return self.title
