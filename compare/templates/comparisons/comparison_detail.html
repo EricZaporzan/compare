@@ -9,5 +9,5 @@
 <div class="card card-block row">
   <h3 class="card-title">Details</h3>
   {% if object.description %}<p>{{ object.description }}</p>{% endif %}
-
+  <p>Created on {{ object.date_created|date:"F j, o" }}</p>
 {% endblock content %}
