@@ -14,17 +14,17 @@ urlpatterns = [
         name='list'
     ),
     url(
-        regex=r'^~create/$',
+        regex=r'^create/$',
         view=views.ComparisonCreateView.as_view(),
         name='create'
     ),
     url(
-        regex=r'^(?P<pk>[\w.@+-]+)/$',
+        regex=r'^(?P<pk>[\d]+)/$',
         view=views.ComparisonDetailView.as_view(),
         name='detail'
     ),
     url(
-        regex=r'^~update/$',
+        regex=r'^update/$',
         view=views.ComparisonUpdateView.as_view(),
         name='update'
     ),
