@@ -35,7 +35,7 @@ class ComparisonItem(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
     score = models.IntegerField(default=1400)
-    image_url = models.URLField()
+    image = models.ImageField(upload_to='CIs')
 
     def __str__(self):
         if(self.title == ""):
