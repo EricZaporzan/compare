@@ -34,6 +34,7 @@ class ComparisonItem(models.Model):
     description = models.TextField(_("Give a brief description of the submission"), blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
+    score = models.IntegerField(default=1400)
     image_url = models.URLField()
 
     def __str__(self):
