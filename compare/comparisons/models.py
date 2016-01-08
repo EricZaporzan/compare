@@ -2,6 +2,7 @@
 from __future__ import unicode_literals, absolute_import
 
 from django.core.urlresolvers import reverse
+from django.conf import settings
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
@@ -10,7 +11,7 @@ from django.utils import timezone
 from compare.users.models import User
 
 class Comparison(models.Model):
-    owner = models.ForeignKey(User)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL)
     title = models.CharField(_("What should it be called?"), max_length=255)
     description = models.TextField(_("Outline the rules, guidelines, and anything else important about this comparison."), blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
@@ -28,7 +29,7 @@ class Comparison(models.Model):
 
 class ComparisonItem(models.Model):
     comparison = models.ForeignKey(Comparison)
-    owner = models.ForeignKey(User)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL)
     title = models.CharField(_("Name"), max_length=255, blank=True)
     description = models.TextField(_("Give a brief description of the submission"), blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
