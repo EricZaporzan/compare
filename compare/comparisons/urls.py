@@ -24,7 +24,7 @@ urlpatterns = [
         name='detail'
     ),
     url(
-        regex=r'^update/$',
+        regex=r'^update/(?P<pk>[\d]+)/$',
         view=views.ComparisonUpdateView.as_view(),
         name='update'
     ),
