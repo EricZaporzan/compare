@@ -9,9 +9,9 @@ from . import views
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='comparisons/home.html'), name="home"),
     url(
-        regex=r'^$',
+        regex=r'^browse/$',
         view=views.ComparisonListView.as_view(),
-        name='list'
+        name='browse'
     ),
     url(
         regex=r'^create/$',
