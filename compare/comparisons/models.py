@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
+from datetime import datetime
 
 from django.core.urlresolvers import reverse
 from django.conf import settings
@@ -35,7 +36,7 @@ class ComparisonItem(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
     score = models.IntegerField(default=1400)
-    image = models.ImageField(upload_to='CIs')
+    image = models.ImageField(upload_to=datetime.utcnow().strftime("%Y%m%d%H%M%S%f")[:-3])
 
     def __str__(self):
         if(self.title == ""):
