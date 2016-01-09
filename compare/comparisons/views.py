@@ -19,6 +19,8 @@ class ComparisonCreateView(LoginRequiredMixin, CreateView):
 
 
 class ComparisonUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = "comparisons/comparison_update.html"
+    fields = ['title', 'description', 'date_starting', 'date_ending',]
     model = Comparison
 
 class ComparisonDetailView(LoginRequiredMixin, DetailView):

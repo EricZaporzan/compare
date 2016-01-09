@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h1>Update Comparison</h1>
+<div class="card card-block row">
+  <h3 class="card-title">Change Comparison</h1>
+  <form class="form-horizontal" method="post" action="{% url 'comparisons:update' object.pk %}">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <div class="control-group">
+        <div class="controls">
+          <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+      </div>
+  </form>
+</div>
+{% endblock %}
