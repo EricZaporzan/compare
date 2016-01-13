@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<h1>{{ object.title }}</h1>
+<h1 style="display: inline;">{{ object.title }} </h1><p style="display: inline;">(<a href="{% url 'comparisons:update' object.pk %}">Edit</a>)</p>
 <p class="font-italic">A comparison set created by {{ object.owner.username }}.</p>
 
 <div class="card card-block row">
