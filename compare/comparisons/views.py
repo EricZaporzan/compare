@@ -4,6 +4,7 @@ from __future__ import absolute_import, unicode_literals
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.views.generic import CreateView, DetailView, ListView, RedirectView, UpdateView
+from django.core.exceptions import PermissionDenied
 
 from braces.views import LoginRequiredMixin
 
@@ -22,6 +23,12 @@ class ComparisonUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "comparisons/comparison_update.html"
     fields = ['title', 'description', 'date_starting', 'date_ending',]
     model = Comparison
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.username != self.get_object().owner.username:
+            print self.get_object().owner
+            raise PermissionDenied # HTTP 403
+        return super(ComparisonUpdateView, self).dispatch(request, *args, **kwargs)
 
 class ComparisonDetailView(LoginRequiredMixin, DetailView):
     model = Comparison
