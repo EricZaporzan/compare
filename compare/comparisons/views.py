@@ -18,7 +18,6 @@ class ComparisonCreateView(LoginRequiredMixin, CreateView):
         form.instance.owner = owner
         return super(ComparisonCreateView, self).form_valid(form)
 
-
 class ComparisonUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "comparisons/comparison_update.html"
     fields = ['title', 'description', 'date_starting', 'date_ending',]
@@ -42,4 +41,8 @@ class ComparisonDetailView(LoginRequiredMixin, DetailView):
         return context
 
 class ComparisonListView(ListView):
+    model = Comparison
+
+
+class ComparisonMyListView(ListView):
     model = Comparison
