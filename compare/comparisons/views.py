@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.views.generic import CreateView, DetailView, ListView, RedirectView, UpdateView
 from django.core.exceptions import PermissionDenied
@@ -9,6 +9,7 @@ from django.core.exceptions import PermissionDenied
 from braces.views import LoginRequiredMixin
 
 from .models import Comparison, ComparisonItem
+from compare.users.models import User
 
 class ComparisonCreateView(LoginRequiredMixin, CreateView):
     fields = ['title', 'description', 'date_starting', 'date_ending',]
@@ -42,6 +43,13 @@ class ComparisonDetailView(LoginRequiredMixin, DetailView):
 
 class ComparisonListView(ListView):
     model = Comparison
+
+    def get_queryset(self):
+        username = self.request.GET.get('username')
+        if username == None:
+            return super(ComparisonListView, self).get_queryset()
+        self.user = get_object_or_404(User, username=username)
+        return Comparison.objects.filter(owner=self.user)
 
 
 class ComparisonMyListView(ListView):
