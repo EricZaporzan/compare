@@ -9,15 +9,21 @@ from django.core.exceptions import PermissionDenied
 from braces.views import LoginRequiredMixin
 
 from .models import Comparison, ComparisonItem
+from .forms import ComparisonCreateForm
 from compare.users.models import User
 
 class ComparisonCreateView(LoginRequiredMixin, CreateView):
+    comparison_create_form = ComparisonCreateForm
     fields = ['title', 'description', 'date_starting', 'date_ending',]
     model = Comparison
     def form_valid(self, form):
         owner = self.request.user
         form.instance.owner = owner
         return super(ComparisonCreateView, self).form_valid(form)
+    def get_context_data(self, **kwargs):
+        context = super(ComparisonCreateView, self).get_context_data(**kwargs)
+        context['comparison_create_form'] = ComparisonCreateForm
+        return context
 
 class ComparisonUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "comparisons/comparison_update.html"

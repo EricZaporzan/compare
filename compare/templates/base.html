@@ -17,6 +17,7 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
 
     <!-- This file store project specific CSS -->
     <link href="{% static 'css/project.css' %}" rel="stylesheet">
@@ -93,6 +94,7 @@
     <script>
     $(document).ready(function () {
       $('[data-toggle="tooltip"]').tooltip();
+      $('.date-picker').datepicker();
     });
     </script>
     {% endblock ready %}
@@ -101,13 +103,14 @@
     ================================================== -->
     <!-- (Mostly) placed at the end of the document so the pages load faster -->
     {% block javascript %}
+      <!-- JQuery UI -->
+      <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
       <!-- Tether - a requirement for Bootstrap tooltips -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.1.1/js/tether.min.js"></script>
 
       <!-- Latest compiled and minified JavaScript -->
       <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script>
-
-      <!-- Your stuff: Third-party javascript libraries go here -->
 
       <!-- place project specific Javascript in this file -->
       <script src="{% static 'js/project.js' %}"></script>

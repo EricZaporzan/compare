@@ -5,14 +5,6 @@
 <h1>Create Comparison</h1>
 <div class="card card-block row">
   <h3 class="card-title">Create Comparison</h1>
-  <form class="form-horizontal" method="post" action="{% url 'comparisons:create' %}">
-      {% csrf_token %}
-      {{ form|crispy }}
-      <div class="control-group">
-        <div class="controls">
-          <button type="submit" class="btn btn-primary">Create</button>
-        </div>
-      </div>
-  </form>
+  {% crispy comparison_create_form %}
 </div>
 {% endblock %}
