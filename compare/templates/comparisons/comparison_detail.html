@@ -19,7 +19,7 @@
   {% if related_comparisonitems %}
   {% for comparisonitem in related_comparisonitems %}
   {% thumbnail comparisonitem.image "200x200" crop="center" as im %}
-    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" {% if comparisonitem.title %}data-toggle="tooltip" data-placement="top" title="'{{ comparisonitem.title }}', by {{ comparisonitem.owner.username }}"{% else %}data-toggle="tooltip" data-placement="top" title="Submission by {{ comparisonitem.owner.username }}"{% endif %}>
+    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" {% if comparisonitem.title %}data-toggle="tooltip" data-placement="top" title="'{{ comparisonitem.title }}', by {{ comparisonitem.owner.username }} <br/>Score: {{ comparisonitem.score }}"{% else %}data-toggle="tooltip" data-placement="top" title="Submission by {{ comparisonitem.owner.username }} <br/>Score: {{ comparisonitem.score }}"{% endif %}>
   {% endthumbnail %}
   {% endfor %}
   {% else %}
