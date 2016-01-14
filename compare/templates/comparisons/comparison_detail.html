@@ -14,7 +14,7 @@
   {% if related_comparisonitems %}
   {% for comparisonitem in related_comparisonitems %}
   {% thumbnail comparisonitem.image "200x200" crop="center" as im %}
-    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" {% if comparisonitem.title %}data-toggle="tooltip" data-placement="top" title="{{ comparisonitem.title }}"{% endif %}>
   {% endthumbnail %}
 
   {% endfor %}

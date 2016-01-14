@@ -26,6 +26,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     {% endblock %}
 
+    {% block jquery %}
+    <!-- Latest JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    {% endblock jquery %}
+
   </head>
 
   <body>
@@ -84,13 +89,18 @@
 
     {% block modal %}{% endblock modal %}
 
+    {% block ready %}
+    <script>
+    $(document).ready(function () {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+    </script>
+    {% endblock ready %}
+
     <!-- Le javascript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- (Mostly) placed at the end of the document so the pages load faster -->
     {% block javascript %}
-      <!-- Latest JQuery -->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-
       <!-- Tether - a requirement for Bootstrap tooltips -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.1.1/js/tether.min.js"></script>
 
