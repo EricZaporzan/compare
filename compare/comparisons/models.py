@@ -9,6 +9,8 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
+from sorl.thumbnail import ImageField
+
 from compare.users.models import User
 
 class Comparison(models.Model):
@@ -36,7 +38,7 @@ class ComparisonItem(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
     score = models.IntegerField(default=1400)
-    image = models.ImageField(upload_to=datetime.utcnow().strftime("%Y%m%d%H%M%S%f")[:-3])
+    image = ImageField(upload_to=datetime.utcnow().strftime("%Y%m%d%H%M%S%f")[:-3])
 
     def __str__(self):
         if(self.title == ""):

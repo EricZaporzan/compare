@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static thumbnail %}
 
 {% block content %}
 
@@ -12,7 +12,14 @@
   <p>Created on {{ object.date_created|date:"F j, o" }}</p>
 
   {% if related_comparisonitems %}
-  Yay
+  {% for comparisonitem in related_comparisonitems %}
+  {% thumbnail comparisonitem.image "200x200" crop="center" as im %}
+    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+  {% endthumbnail %}
+
+  {% endfor %}
+
+
   {% else %}
   <p>It looks like nobody's submitted anything here. You can be the first!</p>
   {% endif %}
