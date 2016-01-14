@@ -4,24 +4,26 @@
 {% block content %}
 
 <h1 style="display: inline;">{{ object.title }} </h1><p style="display: inline;">(<a href="{% url 'comparisons:update' object.pk %}">Edit</a>)</p>
-<p class="font-italic">A comparison set created by {{ object.owner.username }}.</p>
+<p class="font-italic">A comparison set created by {{ object.owner.username }}. So far, {{ related_comparisonitems.count }} submissions have been made.</p>
 
 <div class="card card-block row">
-  <h3 class="card-title">Details</h3>
-  {% if object.description %}<p>{{ object.description }}</p>{% endif %}
-  <p>Created on {{ object.date_created|date:"F j, o" }}</p>
+  {% if object.description %}
+  <h4>Description</h4>
+  <p>{{ object.description }}</p>
+  {% endif %}
 
+  <h4>Created</h4>
+  <p>{{ object.date_created|date:"F j, o" }}</p>
+
+  <h4>Submissions</h4>
   {% if related_comparisonitems %}
   {% for comparisonitem in related_comparisonitems %}
   {% thumbnail comparisonitem.image "200x200" crop="center" as im %}
-    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" {% if comparisonitem.title %}data-toggle="tooltip" data-placement="top" title="{{ comparisonitem.title }}"{% endif %}>
+    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" {% if comparisonitem.title %}data-toggle="tooltip" data-placement="top" title="'{{ comparisonitem.title }}', by {{ comparisonitem.owner.username }}"{% else %}data-toggle="tooltip" data-placement="top" title="Submission by {{ comparisonitem.owner.username }}"{% endif %}>
   {% endthumbnail %}
-
   {% endfor %}
-
-
   {% else %}
-  <p>It looks like nobody's submitted anything here. You can be the first!</p>
+  <p>It looks like nobody's submitted anything here. <a href="#">You can be the first!</a></p>
   {% endif %}
 
 {% endblock content %}
