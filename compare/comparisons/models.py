@@ -19,8 +19,8 @@ class Comparison(models.Model):
     description = models.TextField(_("Outline the rules, guidelines, and anything else important about this comparison."), blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
-    date_starting = models.DateTimeField(_("When should we start?"), blank=True, default=timezone.now)
-    date_ending = models.DateTimeField(_("When should we finish?"), blank=True, null=True)
+    date_starting = models.DateField(_("When should we start?"), blank=True, default=timezone.now)
+    date_ending = models.DateField(_("When should we finish?"), blank=True, null=True)
     active = models.BooleanField(_("Is it happening right now?"), default=True)
 
     def __str__(self):
