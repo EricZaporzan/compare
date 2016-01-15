@@ -2,7 +2,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.shortcuts import render, get_object_or_404
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, RedirectView, UpdateView
 from django.core.exceptions import PermissionDenied
 
@@ -14,6 +14,7 @@ from compare.users.models import User
 
 
 class ComparisonCreateView(LoginRequiredMixin, CreateView):
+    template_name = "comparisons/comparison_form.html"
     fields = ['title', 'description', 'date_starting', 'date_ending',]
     model = Comparison
 
@@ -41,15 +42,18 @@ class ComparisonUpdateView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super(ComparisonUpdateView, self).get_context_data(**kwargs)
         instance = self.get_object()
-        data = {'title': instance.title, 'description': instance.description, 'date_starting': instance.date_starting, 'date_ending': instance.date_ending }
-        comparison_update_form = ComparisonUpdateForm(initial=data)
+        initial = {'title': instance.title,
+                'description': instance.description,
+                'date_starting': instance.date_starting.strftime("%m/%d/%Y"),
+                'date_ending': instance.date_ending.strftime("%m/%d/%Y")}
+        comparison_update_form = ComparisonUpdateForm(initial=initial)
         comparison_update_form.helper.form_action = reverse("comparisons:update", kwargs={'pk': instance.pk})
-
         context['comparison_update_form'] = comparison_update_form
         return context
 
 
 class ComparisonDetailView(LoginRequiredMixin, DetailView):
+    template_name = "comparisons/comparison_detail.html"
     model = Comparison
     slug_field = "pk"
     slug_url_kwarg = "pk"
@@ -62,6 +66,7 @@ class ComparisonDetailView(LoginRequiredMixin, DetailView):
 
 
 class ComparisonListView(ListView):
+    template_name = "comparisons/comparison_list.html"
     model = Comparison
 
     def get_queryset(self):
@@ -70,3 +75,28 @@ class ComparisonListView(ListView):
             return super(ComparisonListView, self).get_queryset()
         self.user = get_object_or_404(User, username=username)
         return Comparison.objects.filter(owner=self.user)
+
+
+class ComparisonItemCreateView(LoginRequiredMixin, CreateView):
+    template_name = "comparisons/comparison_submit.html"
+    model = ComparisonItem
+    fields = ['title', 'description', 'image',]
+
+    def get_success_url(self):
+        success_url =  reverse_lazy("comparisons:detail", kwargs={'pk': self.kwargs['pk']})
+        return success_url
+
+    def get_context_data(self, **kwargs):
+        context = super(ComparisonItemCreateView, self).get_context_data(**kwargs)
+        pk = self.kwargs['pk'] # Comparison will be the PK!
+        context['comparison'] = get_object_or_404(Comparison, pk=pk)
+        return context
+
+    def form_valid(self, form):
+        owner = self.request.user
+        pk = self.kwargs['pk']
+        comparison = get_object_or_404(Comparison, pk=pk)
+
+        form.instance.owner = owner
+        form.instance.comparison = comparison
+        return super(ComparisonItemCreateView, self).form_valid(form)

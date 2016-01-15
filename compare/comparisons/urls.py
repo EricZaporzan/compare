@@ -28,4 +28,9 @@ urlpatterns = [
         view=views.ComparisonUpdateView.as_view(),
         name='update'
     ),
+    url(
+        regex=r'^submit/(?P<pk>[\d]+)/$',
+        view=views.ComparisonItemCreateView.as_view(),
+        name='submit'
+    ),
 ]

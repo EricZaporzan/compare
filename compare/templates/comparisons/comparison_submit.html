@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h1>Submit Comparison</h1>
+<div class="card card-block row">
+  <h3 class="card-title">Make Submission to "{{ comparison.title }}"</h1>
+  <form class="form-horizontal" method="post" enctype="multipart/form-data" action="{% url 'comparisons:submit' comparison.pk %}">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <div class="control-group">
+        <div class="controls">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        <!--<span class="btn btn-primary btn-file">
+          Browse <input type="file">
+        </span>-->
+      </div>
+  </form>
+</div>
+{% endblock %}
