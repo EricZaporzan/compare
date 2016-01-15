@@ -40,11 +40,14 @@ class ComparisonUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(ComparisonUpdateView, self).get_context_data(**kwargs)
-        comparison_update_form = ComparisonUpdateForm()
-        comparison_update_form.helper.form_action = reverse("comparisons:update", kwargs={'pk': self.get_object().pk})
+        instance = self.get_object()
+        data = {'title': instance.title, 'description': instance.description, 'date_starting': instance.date_starting, 'date_ending': instance.date_ending }
+        comparison_update_form = ComparisonUpdateForm(initial=data)
+        comparison_update_form.helper.form_action = reverse("comparisons:update", kwargs={'pk': instance.pk})
 
         context['comparison_update_form'] = comparison_update_form
         return context
+
 
 class ComparisonDetailView(LoginRequiredMixin, DetailView):
     model = Comparison
