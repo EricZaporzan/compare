@@ -8,18 +8,18 @@
   <div class="col-sm-4 card card-block">
     <h3 class="card-title">Browse</h3>
     <p class="card-text">See active comparisons, make your voice heard.</p>
-    <a href="{% url 'comparisons:browse' %}" class="btn btn-primary">Browse!</a>
+    <a href="{% url 'comparisons:browse' %}" class="btn btn-primary">Browse</a>
   </div>
   <div class="col-sm-4 card card-block">
     <h3 class="card-title">Create</h3>
     <p class="card-text">Create your own comparisons, see where everything stacks up.</p>
-    <a href="{% url 'comparisons:create' %}" class="btn btn-primary">Create!</a>
+    <a href="{% url 'comparisons:create' %}" class="btn btn-primary">Create</a>
   </div>
   {% if request.user.is_authenticated %}
   <div class="col-sm-4 card card-block">
     <h3 class="card-title">Manage</h3>
     <p class="card-text">View and modify your current competitions, visualize the rankings.</p>
-    <a href="{% url 'comparisons:browse' %}?username={{ request.user.username }}" class="btn btn-primary">Manage!</a>
+    <a href="{% url 'comparisons:browse' %}?username={{ request.user.username }}" class="btn btn-primary">Manage</a>
   </div>
   {% endif %}
 </div>
