@@ -5,15 +5,18 @@
 
 <div class="container">
 
-    <h2>Comparisons</h2>
+    <h2>{{ title }}</h2>
 
     <div class="list-group">
+        {% if object_list %}
         {% for comparison in object_list %}
           <a href="{% url 'comparisons:detail' comparison.pk %}" class="list-group-item">
             <h4 class="list-group-item-heading">{{ comparison.title }}</h4>
           </a>
         {% endfor %}
-
+        {% else %}
+        <p>There doesn't seem to be anything here. That's a little sad. Maybe you should <a href="{% url 'comparisons:create' %}">create a competition</a>!
+        {% endif %}
     </div>
 
 {% endblock content %}

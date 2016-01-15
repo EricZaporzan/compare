@@ -76,6 +76,14 @@ class ComparisonListView(ListView):
         self.user = get_object_or_404(User, username=username)
         return Comparison.objects.filter(owner=self.user)
 
+    def get_context_data(self, **kwargs):
+        context = super(ComparisonListView, self).get_context_data(**kwargs)
+        username = self.request.GET.get('username')
+        if username == None:
+            context['title'] = "All Comparisons"
+        else:
+            context['title'] = username + "'s Comparisons"
+        return context
 
 class ComparisonItemCreateView(LoginRequiredMixin, CreateView):
     template_name = "comparisons/comparison_submit.html"
