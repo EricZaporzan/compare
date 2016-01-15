@@ -15,7 +15,7 @@
   <h4>Created</h4>
   <p>{{ object.date_created|date:"F j, o" }}</p>
 
-  <h4>Submissions</h4>
+  <div><h4 style="display: inline;">Submissions </h4><a href="{% url 'comparisons:submit' object.pk %}" class="make-submission-icon" title="Make a submission"><i style="display: inline;" class="fa fa-plus fa-lg"></i></a></div>
   {% if related_comparisonitems %}
   {% for comparisonitem in related_comparisonitems %}
   {% thumbnail comparisonitem.image "200x200" crop="center" as im %}
@@ -23,7 +23,7 @@
   {% endthumbnail %}
   {% endfor %}
   {% else %}
-  <p>It looks like nobody's submitted anything here. <a href="#">You can be the first!</a></p>
+  <p>It looks like nobody's submitted anything here. <a href="{% url 'comparisons:submit' object.pk %}">You can be the first!</a></p>
   {% endif %}
 
 {% endblock content %}

@@ -4,7 +4,7 @@
 {% block content %}
 <h1>Submit Comparison</h1>
 <div class="card card-block row">
-  <h3 class="card-title">Make Submission to "{{ comparison.title }}"</h1>
+  <h3 class="card-title">Make a Submission to "{{ comparison.title }}"</h1>
   <form class="form-horizontal" method="post" enctype="multipart/form-data" action="{% url 'comparisons:submit' comparison.pk %}">
       {% csrf_token %}
       {{ form|crispy }}

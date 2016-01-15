@@ -77,3 +77,13 @@
     cursor: inherit;
     display: block;
 }
+
+.make-submission-icon {
+  color: #002E62;
+  text-decoration: none;
+}
+
+.make-submission-icon:hover, .make-submission-icon:focus {
+  color: #0069E0;
+  text-decoration: none;
+}
