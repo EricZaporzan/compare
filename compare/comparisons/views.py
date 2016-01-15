@@ -34,11 +34,13 @@ class ComparisonUpdateView(LoginRequiredMixin, UpdateView):
     fields = ['title', 'description', 'date_starting', 'date_ending',]
     model = Comparison
 
+    # Users should only be able to update their own comparisons. Handled here.
     def dispatch(self, request, *args, **kwargs):
         if request.user.username != self.get_object().owner.username:
             raise PermissionDenied # HTTP 403
         return super(ComparisonUpdateView, self).dispatch(request, *args, **kwargs)
 
+    # Handles the prepopulation of the form (since there's already stuff there)
     def get_context_data(self, **kwargs):
         context = super(ComparisonUpdateView, self).get_context_data(**kwargs)
         instance = self.get_object()
@@ -65,10 +67,13 @@ class ComparisonDetailView(LoginRequiredMixin, DetailView):
         return context
 
 
+# This view returns the full list of comparisons if there's no ?username token.
+# If there is a ?username token it'll return all of that user's comparisons.
 class ComparisonListView(ListView):
     template_name = "comparisons/comparison_list.html"
     model = Comparison
 
+    # This handles the filtering on the username
     def get_queryset(self):
         username = self.request.GET.get('username')
         if username == None:
@@ -76,6 +81,7 @@ class ComparisonListView(ListView):
         self.user = get_object_or_404(User, username=username)
         return Comparison.objects.filter(owner=self.user)
 
+    # Passes down different context depending on the token existence.
     def get_context_data(self, **kwargs):
         context = super(ComparisonListView, self).get_context_data(**kwargs)
         username = self.request.GET.get('username')
@@ -85,11 +91,13 @@ class ComparisonListView(ListView):
             context['title'] = username + "'s Comparisons"
         return context
 
+
 class ComparisonItemCreateView(LoginRequiredMixin, CreateView):
     template_name = "comparisons/comparison_submit.html"
     model = ComparisonItem
     fields = ['title', 'description', 'image',]
 
+    # After a successful submit, returns the user to that comparison's page
     def get_success_url(self):
         success_url =  reverse_lazy("comparisons:detail", kwargs={'pk': self.kwargs['pk']})
         return success_url
@@ -104,7 +112,6 @@ class ComparisonItemCreateView(LoginRequiredMixin, CreateView):
         owner = self.request.user
         pk = self.kwargs['pk']
         comparison = get_object_or_404(Comparison, pk=pk)
-
         form.instance.owner = owner
         form.instance.comparison = comparison
         return super(ComparisonItemCreateView, self).form_valid(form)
