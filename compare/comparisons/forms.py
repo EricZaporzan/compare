@@ -4,6 +4,7 @@ from django.utils import timezone
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Fieldset, ButtonHolder, Submit
 
+
 class ComparisonCreateForm(forms.Form):
     title = forms.CharField(required=True, label="What should it be called?")
     description = forms.CharField(required=False, widget=forms.Textarea, label="Outline the rules, guidelines, and anything else important about this comparison.")
@@ -24,6 +25,7 @@ class ComparisonCreateForm(forms.Form):
             )
         )
         self.helper.add_input(Submit('submit', 'Submit'))
+
 
 class ComparisonUpdateForm(forms.Form):
     title = forms.CharField(required=True, label="What should it be called?")

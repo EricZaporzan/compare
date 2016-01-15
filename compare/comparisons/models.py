@@ -13,6 +13,7 @@ from sorl.thumbnail import ImageField
 
 from compare.users.models import User
 
+
 class Comparison(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL)
     title = models.CharField(_("What should it be called?"), max_length=255)

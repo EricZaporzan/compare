@@ -27,6 +27,7 @@ class ComparisonCreateView(LoginRequiredMixin, CreateView):
         context['comparison_create_form'] = ComparisonCreateForm()
         return context
 
+
 class ComparisonUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "comparisons/comparison_update.html"
     fields = ['title', 'description', 'date_starting', 'date_ending',]
@@ -55,6 +56,7 @@ class ComparisonDetailView(LoginRequiredMixin, DetailView):
         context = super(ComparisonDetailView, self).get_context_data(**kwargs)
         context['related_comparisonitems'] = ComparisonItem.objects.filter(comparison__exact = self.get_object()).order_by('-score')
         return context
+
 
 class ComparisonListView(ListView):
     model = Comparison
