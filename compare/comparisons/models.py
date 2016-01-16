@@ -13,6 +13,8 @@ from sorl.thumbnail import ImageField
 
 from compare.users.models import User
 
+def upload_to():
+    return datetime.utcnow().strftime("%Y%m%d%H%M%S%f")[:-3]
 
 class Comparison(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL)
@@ -39,7 +41,7 @@ class ComparisonItem(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
     score = models.IntegerField(default=1400)
-    image = ImageField(upload_to=datetime.utcnow().strftime("%Y%m%d%H%M%S%f")[:-3])
+    image = ImageField(upload_to=upload_to)
 
     def __str__(self):
         if(self.title == ""):
