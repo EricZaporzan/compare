@@ -40,6 +40,7 @@ THIRD_PARTY_APPS = (
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
     'allauth.socialaccount.providers.twitter',
+    'allauth.socialaccount.providers.facebook',
     'django_countries', # Country field for the user model
     'sorl.thumbnail', # Utility for quickly creating thumbnails
 )

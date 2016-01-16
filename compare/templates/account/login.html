@@ -16,14 +16,14 @@ or you can{% else %}If you don't have an account you can{% endif %} <a href="{{ 
 <div class="card card-block row">
   <h3 class="card-title">External Sign In</h3>
   <p>Start by clicking one of the icons below.</p>
-  <div class="socialaccount_ballot">
-    {% for provider in socialaccount_providers %}
-    <p><a title="Sign in with {{provider.name}}!" class="socialaccount_provider {{provider.id}}"
- href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><i class="fa fa-{{provider.id}} fa-3x"></i></a></p>
-    {% endfor %}
-  </div>
-
-  {% include "socialaccount/snippets/login_extra.html" %}
+  <span>
+    <a title="Sign in with Twitter" class="socialaccount_provider Twitter"
+    href="/accounts/twitter/login/?process="><i class="fa fa-twitter fa-3x fa-fw"></i></a>
+  </span>
+  <span>
+    <a title="Sign in with Facebook" class="socialaccount_provider Facebook"
+    href="{% provider_login_url 'facebook' method='js_sdk' %}"><i class="fa fa-facebook fa-3x fa-fw"></i></a>
+  </span>
 </div>
 {% endif %}
 <div class="card card-block row">
