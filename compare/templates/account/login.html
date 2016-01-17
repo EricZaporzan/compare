@@ -13,6 +13,8 @@
 or you can{% else %}If you don't have an account you can{% endif %} <a href="{{ signup_url }}">sign up with us here</a>!</p>
 
 {% if socialaccount_providers %}
+
+{% include "socialaccount/snippets/login_extra.html" %}
 <div class="card card-block row">
   <h3 class="card-title">External Sign In</h3>
   <p>Start by clicking one of the icons below.</p>
