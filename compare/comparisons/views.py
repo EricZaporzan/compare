@@ -9,7 +9,7 @@ from django.core.exceptions import PermissionDenied
 from braces.views import LoginRequiredMixin
 
 from .models import Comparison, ComparisonItem
-from .forms import ComparisonCreateForm, ComparisonUpdateForm
+from .forms import ComparisonCreateForm, ComparisonUpdateForm, ComparisonItemCreateForm
 from compare.users.models import User
 
 
@@ -104,8 +104,11 @@ class ComparisonItemCreateView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(ComparisonItemCreateView, self).get_context_data(**kwargs)
+        comparison_item_create_form = ComparisonItemCreateForm()
+        comparison_item_create_form.helper.form_action = reverse("comparisons:submit", kwargs={'pk': self.kwargs['pk']})
         pk = self.kwargs['pk'] # Comparison will be the PK!
         context['comparison'] = get_object_or_404(Comparison, pk=pk)
+        context['comparison_item_create_form'] = comparison_item_create_form
         return context
 
     def form_valid(self, form):

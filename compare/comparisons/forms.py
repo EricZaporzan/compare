@@ -2,7 +2,7 @@ from django import forms
 from django.utils import timezone
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, Fieldset, ButtonHolder, Submit
+from crispy_forms.layout import Layout, Field, Fieldset, ButtonHolder, Submit, HTML
 
 
 class ComparisonCreateForm(forms.Form):
@@ -46,3 +46,23 @@ class ComparisonUpdateForm(forms.Form):
             )
         )
         self.helper.add_input(Submit('submit', 'Update'))
+
+
+class ComparisonItemCreateForm(forms.Form):
+    title = forms.CharField(required=False, label="Give it a name.")
+    description = forms.CharField(required=False, widget=forms.Textarea, label="Give a brief description.")
+    image = forms.ImageField(required=True, label="Choose an image to submit. You can preview it before submitting.")
+
+    def __init__(self, *args, **kwargs):
+        super(ComparisonItemCreateForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Fieldset(
+                None,
+                'title',
+                'description',
+                'image',
+                HTML("""<div class="image_preview m-b-1"><img id='image_preview'/></div>""")
+            )
+        )
+        self.helper.add_input(Submit('submit', 'Submit'))
