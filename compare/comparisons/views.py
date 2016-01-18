@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
+from datetime import date
 
 from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse, reverse_lazy
@@ -97,6 +98,14 @@ class ComparisonItemCreateView(LoginRequiredMixin, CreateView):
     model = ComparisonItem
     fields = ['title', 'description', 'image',]
 
+    # Rather not let a user submit to a contest if it's already over. Raise a 403 instead.
+    def dispatch(self, request, *args, **kwargs):
+        comparison = get_object_or_404(Comparison, pk=self.kwargs['pk'])
+        today = date.today()
+        if (comparison.date_starting and today < comparison.date_starting) or (comparison.date_ending and today > comparison.date_ending):
+            raise PermissionDenied
+        return super(ComparisonItemCreateView, self).dispatch(request, *args, **kwargs)
+
     # After a successful submit, returns the user to that comparison's page
     def get_success_url(self):
         success_url =  reverse_lazy("comparisons:detail", kwargs={'pk': self.kwargs['pk']})
@@ -106,7 +115,7 @@ class ComparisonItemCreateView(LoginRequiredMixin, CreateView):
         context = super(ComparisonItemCreateView, self).get_context_data(**kwargs)
         comparison_item_create_form = ComparisonItemCreateForm()
         comparison_item_create_form.helper.form_action = reverse("comparisons:submit", kwargs={'pk': self.kwargs['pk']})
-        pk = self.kwargs['pk'] # Comparison will be the PK!
+        pk = self.kwargs['pk'] # pk of the parent comparison!
         context['comparison'] = get_object_or_404(Comparison, pk=pk)
         context['comparison_item_create_form'] = comparison_item_create_form
         return context
