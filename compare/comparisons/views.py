@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from datetime import date
 
 from django.shortcuts import render, get_object_or_404
+from django.contrib import messages
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, RedirectView, UpdateView
 from django.core.exceptions import PermissionDenied
@@ -38,6 +39,7 @@ class ComparisonUpdateView(LoginRequiredMixin, UpdateView):
     # Users should only be able to update their own comparisons. Handled here.
     def dispatch(self, request, *args, **kwargs):
         if request.user.username != self.get_object().owner.username:
+            messages.error(request, "This doesn't belong to you, so you can't edit it!")
             raise PermissionDenied # HTTP 403
         return super(ComparisonUpdateView, self).dispatch(request, *args, **kwargs)
 
@@ -103,6 +105,7 @@ class ComparisonItemCreateView(LoginRequiredMixin, CreateView):
         comparison = get_object_or_404(Comparison, pk=self.kwargs['pk'])
         today = date.today()
         if (comparison.date_starting and today < comparison.date_starting) or (comparison.date_ending and today > comparison.date_ending):
+            messages.error(request, "Sorry, you can't submit to a competition that's already ended!")
             raise PermissionDenied
         return super(ComparisonItemCreateView, self).dispatch(request, *args, **kwargs)
 
