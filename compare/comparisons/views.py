@@ -47,10 +47,17 @@ class ComparisonUpdateView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super(ComparisonUpdateView, self).get_context_data(**kwargs)
         instance = self.get_object()
+
+        # This is ugly; let's change the model at some point to make this required or default to something. 
+        if instance.date_ending:
+            date_ending = instance.date_ending.strftime("%m/%d/%Y")
+        else:
+            date_ending = None
+
         initial = {'title': instance.title,
                 'description': instance.description,
                 'date_starting': instance.date_starting.strftime("%m/%d/%Y"),
-                'date_ending': instance.date_ending.strftime("%m/%d/%Y")}
+                'date_ending': date_ending}
         comparison_update_form = ComparisonUpdateForm(initial=initial)
         comparison_update_form.helper.form_action = reverse("comparisons:update", kwargs={'pk': instance.pk})
         context['comparison_update_form'] = comparison_update_form
