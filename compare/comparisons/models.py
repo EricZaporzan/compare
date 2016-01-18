@@ -13,8 +13,8 @@ from sorl.thumbnail import ImageField
 
 from compare.users.models import User
 
-def upload_to():
-    return datetime.utcnow().strftime("%Y%m%d%H%M%S%f")[:-3]
+def upload_to(instance, filename):
+    return datetime.utcnow().strftime("%Y%m%d%H%M%S%f")[:-3] + "/" + filename
 
 class Comparison(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL)
