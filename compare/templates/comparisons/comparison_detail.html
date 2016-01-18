@@ -12,17 +12,14 @@
   <p>{{ object.description }}</p>
   {% endif %}
 
-  <h4>Created</h4>
-  <p>{{ object.date_created|naturalday:"F j, o"|capfirst }}.</p>
+  <p>Created <span class="font-weight-bold">{{ object.date_created|naturalday:"F j, o" }}</span>.</p>
 
   {% if object.date_starting %}
-  <h4>Begins</h4>
-  <p>{{ object.date_starting|naturalday:"F j, o"|capfirst }}.</p>
+  <p>Starts <span class="font-weight-bold">{{ object.date_starting|naturalday:"F j, o" }}</span>.</p>
   {% endif %}
 
   {% if object.date_ending %}
-  <h4>Ends</h4>
-  <p>{{ object.date_ending|naturalday:"F j, o"|capfirst }}.</p>
+  <p>Ends <span class="font-weight-bold">{{ object.date_ending|naturalday:"F j, o" }}</span>.</p>
   {% endif %}
 
   <div><h4 style="display: inline;">Submissions </h4><a href="{% url 'comparisons:submit' object.pk %}" class="make-submission-icon" title="Make a submission"><i style="display: inline;" class="fa fa-plus fa-lg"></i></a></div>
