@@ -87,3 +87,7 @@
   color: #0069E0;
   text-decoration: none;
 }
+
+img {
+  image-orientation: from-image;
+}
