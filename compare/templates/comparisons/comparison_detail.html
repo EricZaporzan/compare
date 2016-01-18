@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<h1 style="display: inline;">{{ object.title }} </h1><p style="display: inline;">(<a href="{% url 'comparisons:update' object.pk %}">Edit</a>)</p>
+<h1 style="display: inline;">{{ object.title }} </h1>{% if object.owner == request.user %}<p style="display: inline;">(<a href="{% url 'comparisons:update' object.pk %}">Edit</a>)</p>{% endif %}
 <p class="font-italic">A comparison set created by {{ object.owner.username }}. So far, {{ related_comparisonitems.count }} submissions have been made.</p>
 
 <div class="card card-block row">
@@ -14,6 +14,16 @@
 
   <h4>Created</h4>
   <p>{{ object.date_created|naturalday:"F j, o"|capfirst }}.</p>
+
+  {% if object.date_starting %}
+  <h4>Begins</h4>
+  <p>{{ object.date_starting|naturalday:"F j, o"|capfirst }}.</p>
+  {% endif %}
+
+  {% if object.date_ending %}
+  <h4>Ends</h4>
+  <p>{{ object.date_ending|naturalday:"F j, o"|capfirst }}.</p>
+  {% endif %}
 
   <div><h4 style="display: inline;">Submissions </h4><a href="{% url 'comparisons:submit' object.pk %}" class="make-submission-icon" title="Make a submission"><i style="display: inline;" class="fa fa-plus fa-lg"></i></a></div>
   {% if related_comparisonitems %}
