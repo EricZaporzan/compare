@@ -48,3 +48,5 @@ class ComparisonItem(models.Model):
             return str(self.owner.username) + "'s submission to the '" + str(self.comparison.title) + "' comparison"
         else:
             return self.title
+
+    # def get_absolute_url(self): # will go here, but right now comparisonitems are mainly accessable through their parent comparisons. 
