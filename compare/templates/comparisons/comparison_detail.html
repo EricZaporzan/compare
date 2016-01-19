@@ -15,11 +15,11 @@
   <p>Created <span class="font-weight-bold">{{ object.date_created|naturalday:"F j, o" }}</span>.</p>
 
   {% if object.date_starting %}
-  <p>Starts <span class="font-weight-bold">{{ object.date_starting|naturalday:"F j, o" }}</span>.</p>
+  <p>{% if object.date_starting <= current_day %}Started{% else %}Starting{% endif %} <span class="font-weight-bold">{{ object.date_starting|naturalday:"F j, o" }}</span>.</p>
   {% endif %}
 
   {% if object.date_ending %}
-  <p>Ends <span class="font-weight-bold">{{ object.date_ending|naturalday:"F j, o" }}</span>.</p>
+  <p>{% if object.date_ending <= current_day %}Ended{% else %}Ending{% endif %} <span class="font-weight-bold">{{ object.date_ending|naturalday:"F j, o" }}</span>.</p>
   {% endif %}
 
   <div><h4 style="display: inline;">Submissions </h4><a href="{% url 'comparisons:submit' object.pk %}" class="make-submission-icon" title="Make a submission"><i style="display: inline;" class="fa fa-plus fa-lg"></i></a></div>

@@ -48,7 +48,7 @@ class ComparisonUpdateView(LoginRequiredMixin, UpdateView):
         context = super(ComparisonUpdateView, self).get_context_data(**kwargs)
         instance = self.get_object()
 
-        # This is ugly; let's change the model at some point to make this required or default to something. 
+        # This is ugly; let's change the model at some point to make this required or default to something.
         if instance.date_ending:
             date_ending = instance.date_ending.strftime("%m/%d/%Y")
         else:
@@ -73,6 +73,7 @@ class ComparisonDetailView(LoginRequiredMixin, DetailView):
     # Overriding the method to return related comparisonitems sorted by score
     def get_context_data(self, **kwargs):
         context = super(ComparisonDetailView, self).get_context_data(**kwargs)
+        context['current_day'] = date.today()
         context['related_comparisonitems'] = ComparisonItem.objects.filter(comparison__exact = self.get_object()).order_by('-score')
         return context
 
@@ -136,4 +137,5 @@ class ComparisonItemCreateView(LoginRequiredMixin, CreateView):
         comparison = get_object_or_404(Comparison, pk=pk)
         form.instance.owner = owner
         form.instance.comparison = comparison
+        messages.success(self.request, "Your submission has been accepted!")
         return super(ComparisonItemCreateView, self).form_valid(form)
