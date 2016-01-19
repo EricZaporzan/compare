@@ -1,23 +1,19 @@
 {% extends "account/base.html" %}
 
 {% block content %}
-<div class="container">
-  <div class="row">
-    <div class="col-md-5">
 
-        <h2>Log Out</h2>
 
-        <p>Are you sure you want to log out?</p>
+<h1>Log Out</h1>
+<div class="card card-block row">
+  <h3 class="card-title">Click the Button Below to Confirm Log Out</h3>
 
-        <form method="post" action="{% url 'account_logout' %}">
-          {% csrf_token %}
-          {% if redirect_field_value %}
-          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
-          {% endif %}
-          <button class="btn btn-danger" type="submit">Log Out</button>
-        </form>
-    </div>
-  </div>
+  <form method="post" action="{% url 'account_logout' %}">
+    {% csrf_token %}
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+    {% endif %}
+    <button class="btn btn-danger" type="submit">Log Out</button>
+  </form>
 </div>
 
 {% endblock %}
