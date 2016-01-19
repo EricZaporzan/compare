@@ -2,7 +2,7 @@
 from __future__ import absolute_import, unicode_literals
 from datetime import date
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, RedirectView, UpdateView
@@ -40,7 +40,7 @@ class ComparisonUpdateView(LoginRequiredMixin, UpdateView):
     def dispatch(self, request, *args, **kwargs):
         if request.user.username != self.get_object().owner.username:
             messages.error(request, "This doesn't belong to you, so you can't edit it!")
-            raise PermissionDenied # HTTP 403
+            return redirect(reverse('comparisons:detail', kwargs={'pk': self.kwargs['pk']}))
         return super(ComparisonUpdateView, self).dispatch(request, *args, **kwargs)
 
     # Handles the prepopulation of the form (since there's already stuff there)
@@ -114,7 +114,7 @@ class ComparisonItemCreateView(LoginRequiredMixin, CreateView):
         today = date.today()
         if (comparison.date_starting and today < comparison.date_starting) or (comparison.date_ending and today > comparison.date_ending):
             messages.error(request, "Sorry, you can't submit to a competition that's already ended!")
-            raise PermissionDenied
+            return redirect(reverse('comparisons:detail', kwargs={'pk': self.kwargs['pk']}))
         return super(ComparisonItemCreateView, self).dispatch(request, *args, **kwargs)
 
     # After a successful submit, returns the user to that comparison's page
