@@ -10,7 +10,8 @@
   <h3 class="card-title">User Details</h3>
   {% if object.country %}<p>Lives in <img src="{{ object.country.flag }}" /> <span class="font-weight-bold">{{ object.country.name }}</span>.</p>{% endif %}
   <p>Member since <span class="font-weight-bold" title="{{ object.date_joined }}">{{ object.date_joined|date:"F j, o" }}</span>.</p>
-
+  <a class="btn btn-primary" href="{% url 'comparisons:browse' %}?username={{ object.username }}">See {{ object.username }}'s created competitions!</a>
+  <a class="btn btn-primary" href="#">See {{ object.username }}'s submissions!</a>
 </div>
 
 {% if object == request.user %}
