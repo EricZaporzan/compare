@@ -41,6 +41,7 @@ THIRD_PARTY_APPS = (
     'allauth.socialaccount.providers.facebook',
     'django_countries', # Country field for the user model
     'sorl.thumbnail', # Utility for quickly creating thumbnails
+    'rest_framework', # DjangoRestFramework
 )
 
 # Apps specific for this project go here.

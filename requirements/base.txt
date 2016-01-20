@@ -43,3 +43,6 @@ django-countries==3.4.1
 
 # Elo, for ratings. Might want to spin something of our own later.
 elo==0.1
+
+# DjangoRESTFramework, for easy API's
+djangorestframework==3.3.2
