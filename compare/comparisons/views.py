@@ -63,6 +63,12 @@ class ComparisonUpdateView(LoginRequiredMixin, UpdateView):
         context['comparison_update_form'] = comparison_update_form
         return context
 
+    def form_valid(self, form):
+        if form.instance.owner.username != request.user.username:
+            messages.error("This doesn't belong to you, so you can't edit it!")
+            return redirect(reverse('comparisons:detail', kwargs={'pk': self.kwargs['pk']}))
+        return super(ComparisonUpdateView, self).form_valid(form)
+
 
 class ComparisonDetailView(LoginRequiredMixin, DetailView):
     template_name = "comparisons/comparison_detail.html"
