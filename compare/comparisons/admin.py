@@ -20,7 +20,7 @@ class ComparisonItemAdmin(admin.ModelAdmin):
     list_display = ("comparison", "owner", "title", "score",)
 
 class ComparisonItemVoteAdmin(admin.ModelAdmin):
-    list_display = ("winner_initial_score", "loser_initial_score", "score_change")
+    list_display = ("winner", "loser", "winner_initial_score", "loser_initial_score", "score_change")
 
 admin.site.register(Comparison, ComparisonAdmin)
 admin.site.register(ComparisonItem, ComparisonItemAdmin)

@@ -65,7 +65,8 @@ class ComparisonItemVote(models.Model):
     loser_initial_score = models.IntegerField(default=1400)
     # The winner will go up by score_change; the loser will go down by the same.
     score_change = models.IntegerField(default=0)
-
+    date_created = models.DateTimeField(auto_now_add=True)
+    
     def save(self, *args, **kwargs):
         self.winner_initial_score = self.winner.score
         self.loser_initial_score = self.loser.score
