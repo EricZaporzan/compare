@@ -40,3 +40,6 @@ redis>=2.10.0
 
 # Countries
 django-countries==3.4.1
+
+# Elo, for ratings. Might want to spin something of our own later.
+elo==0.1

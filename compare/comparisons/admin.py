@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.utils.html import format_html
 
-from .models import Comparison, ComparisonItem
+from .models import Comparison, ComparisonItem, ComparisonItemVote
 
 class ComparisonAdmin(admin.ModelAdmin):
     list_display = ("title", "owner", "active",)
@@ -17,7 +17,11 @@ class ComparisonAdmin(admin.ModelAdmin):
     show_url.short_description = "Comparison URL"
 
 class ComparisonItemAdmin(admin.ModelAdmin):
-    list_display = ("comparison", "owner", "title",)
+    list_display = ("comparison", "owner", "title", "score",)
+
+class ComparisonItemVoteAdmin(admin.ModelAdmin):
+    list_display = ("winner_initial_score", "loser_initial_score", "score_change")
 
 admin.site.register(Comparison, ComparisonAdmin)
 admin.site.register(ComparisonItem, ComparisonItemAdmin)
+admin.site.register(ComparisonItemVote, ComparisonItemVoteAdmin)
