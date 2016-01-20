@@ -9,6 +9,11 @@ from . import views
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='comparisons/home.html'), name="home"),
     url(
+        regex=r'^compare/(?P<pk>[\d]+)/$',
+        view=views.ComparisonPlatformView.as_view(),
+        name='platform'
+    ),
+    url(
         regex=r'^browse/$',
         view=views.ComparisonListView.as_view(),
         name='browse'

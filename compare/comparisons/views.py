@@ -5,7 +5,7 @@ from datetime import date
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView, RedirectView, UpdateView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView, TemplateView
 from django.core.exceptions import PermissionDenied
 
 from braces.views import LoginRequiredMixin
@@ -145,3 +145,13 @@ class ComparisonItemCreateView(LoginRequiredMixin, CreateView):
         form.instance.comparison = comparison
         messages.success(self.request, "Your submission has been accepted!")
         return super(ComparisonItemCreateView, self).form_valid(form)
+
+
+class ComparisonPlatformView(LoginRequiredMixin, TemplateView):
+    template_name = "comparisons/comparison_platform.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ComparisonPlatformView, self).get_context_data(**kwargs)
+        pk = self.kwargs['pk']
+        context['comparison'] = get_object_or_404(Comparison, pk=pk)
+        return context
