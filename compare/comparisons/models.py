@@ -14,7 +14,6 @@ from django.dispatch import receiver
 from sorl.thumbnail import ImageField
 from elo import rate_1vs1
 
-from compare.users.models import User
 
 # Extra functions, can be used by any of these models
 def upload_to(instance, filename):
@@ -49,12 +48,13 @@ class ComparisonItem(models.Model):
     image = ImageField(upload_to=upload_to)
 
     def __str__(self):
-        if(self.title == ""):
+        if self.title == "":
             return str(self.owner.username) + "'s submission to the '" + str(self.comparison.title) + "' comparison"
         else:
             return self.title
 
-    # def get_absolute_url(self): # will go here, but right now comparisonitems are mainly accessable through their parent comparisons.
+    # def get_absolute_url(self): # will go here, but right now
+    # comparisonitems are mainly accessible through their parent comparisons.
 
 
 class ComparisonItemVote(models.Model):
@@ -66,7 +66,7 @@ class ComparisonItemVote(models.Model):
     # The winner will go up by score_change; the loser will go down by the same.
     score_change = models.IntegerField(default=0)
     date_created = models.DateTimeField(auto_now_add=True)
-    
+
     def save(self, *args, **kwargs):
         self.winner_initial_score = self.winner.score
         self.loser_initial_score = self.loser.score
